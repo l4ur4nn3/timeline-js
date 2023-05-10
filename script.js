@@ -1,26 +1,31 @@
 window.addEventListener('DOMContentLoaded', function() {
     const timeline = document.querySelector('.timeline');
-    
+  
     const events = [
       {
-        title: 'Titre de l\'événement 1',
-        date: '2023-05-01'
+        title: 'Événement 1',
+        year: 2021
       },
       {
-        title: 'Titre de l\'événement 2',
-        date: '2023-05-05'
+        title: 'Événement 2',
+        year: 2019
       },
       {
-        title: 'Titre de l\'événement 3',
-        date: '2023-05-10'
+        title: 'Événement 3',
+        year: 2020
+      },
+      {
+        title: 'Événement 4',
+        year: 2018
+      },
+      {
+        title: 'Événement 5',
+        year: 2022
       }
     ];
   
     events.sort(function(a, b) {
-      const dateA = new Date(a.date);
-      const dateB = new Date(b.date);
-  
-      return dateA - dateB;
+      return a.year - b.year;
     });
   
     events.forEach(function(event) {
@@ -31,34 +36,14 @@ window.addEventListener('DOMContentLoaded', function() {
       eventTitleDiv.classList.add('event-title');
       eventTitleDiv.innerText = event.title;
   
-      const eventDateDiv = document.createElement('div');
-      eventDateDiv.classList.add('event-date');
-      eventDateDiv.innerText = event.date;
-  
-      eventDateDiv.addEventListener('click', function() {
-        const isHidden = eventTitleDiv.style.display === 'none';
-  
-        // Cacher tous les event-title
-        const allEventTitles = document.querySelectorAll('.event-title');
-        allEventTitles.forEach(function(title) {
-          title.style.display = 'none';
-        });
-  
-        if (isHidden) {
-          eventTitleDiv.style.display = 'block'; // Afficher le event-title
-        }
-      });
+      const eventYearDiv = document.createElement('div');
+      eventYearDiv.classList.add('event-year');
+      eventYearDiv.innerText = event.year;
   
       eventDiv.appendChild(eventTitleDiv);
-      eventDiv.appendChild(eventDateDiv);
+      eventDiv.appendChild(eventYearDiv);
   
       timeline.appendChild(eventDiv);
-    });
-  
-    // Cacher tous les event-title au chargement de la page
-    const allEventTitles = document.querySelectorAll('.event-title');
-    allEventTitles.forEach(function(title) {
-      title.style.display = 'none';
     });
   });
   
