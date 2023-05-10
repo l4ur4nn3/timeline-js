@@ -1,26 +1,20 @@
 window.addEventListener('DOMContentLoaded', function() {
     const timeline = document.querySelector('.timeline');
-    const h4Elements = document.querySelectorAll('h4.title-heading-left');
-    const spanElements = document.querySelectorAll('span.fusion-tb-published-date');
-  
-    if (h4Elements.length !== spanElements.length) {
-      console.error('Le nombre d\'éléments h4 et span ne correspond pas.');
-      return;
-    }
-  
-    const events = [];
-  
-    for (let i = 0; i < h4Elements.length; i++) {
-      const h4Text = h4Elements[i].innerText;
-      const spanText = spanElements[i].innerText.match(/\b(\w+)$/)[0];
-  
-      const event = {
-        title: h4Text,
-        date: spanText
-      };
-  
-      events.push(event);
-    }
+    
+    const events = [
+      {
+        title: 'Titre de l\'événement 1',
+        date: '2023-05-01'
+      },
+      {
+        title: 'Titre de l\'événement 2',
+        date: '2023-05-05'
+      },
+      {
+        title: 'Titre de l\'événement 3',
+        date: '2023-05-10'
+      }
+    ];
   
     events.sort(function(a, b) {
       const dateA = new Date(a.date);
