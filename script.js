@@ -4,23 +4,28 @@ window.addEventListener('DOMContentLoaded', function() {
     const events = [
       {
         title: 'Événement 1',
-        year: 2021
+        year: 2021,
+        description: 'Description de l\'événement 1.'
       },
       {
         title: 'Événement 2',
-        year: 2019
+        year: 2019,
+        description: 'Description de l\'événement 2.'
       },
       {
         title: 'Événement 3',
-        year: 2020
+        year: 2020,
+        description: 'Description de l\'événement 3.'
       },
       {
         title: 'Événement 4',
-        year: 2018
+        year: 2018,
+        description: 'Description de l\'événement 4.'
       },
       {
         title: 'Événement 5',
-        year: 2022
+        year: 2022,
+        description: 'Description de l\'événement 5.'
       }
     ];
   
@@ -40,8 +45,13 @@ window.addEventListener('DOMContentLoaded', function() {
       eventYearDiv.classList.add('event-year');
       eventYearDiv.innerText = event.year;
   
+      const eventDescriptionDiv = document.createElement('div');
+      eventDescriptionDiv.classList.add('event-description');
+      eventDescriptionDiv.innerText = event.description;
+  
       eventDiv.appendChild(eventTitleDiv);
       eventDiv.appendChild(eventYearDiv);
+      eventDiv.appendChild(eventDescriptionDiv);
   
       timeline.appendChild(eventDiv);
     });
