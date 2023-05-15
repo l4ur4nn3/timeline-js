@@ -1,12 +1,12 @@
-window.addEventListener('DOMContentLoaded', function() {
-  const timeline = document.querySelector('.timeline');
-  const h4Elements = document.querySelectorAll('h4.title-heading-left');
-  const spanElements = document.querySelectorAll('span.fusion-tb-published-date');
-
-
+window.addEventListener("DOMContentLoaded", function () {
+  const timeline = document.querySelector(".timeline");
+  const h4Elements = document.querySelectorAll("h4.title-heading-left");
+  const spanElements = document.querySelectorAll(
+    "span.fusion-tb-published-date"
+  );
 
   if (h4Elements.length !== spanElements.length) {
-    console.error('Le nombre d\'éléments h4 et span ne correspond pas.');
+    console.error("Le nombre d'éléments h4 et span ne correspond pas.");
     return;
   }
 
@@ -16,56 +16,55 @@ window.addEventListener('DOMContentLoaded', function() {
   for (let i = 0; i < 10; i++) {
     const year = Math.floor(Math.random() * (2011 - 1900)) + 1900;
     const title = `Événement ${i + 1}`;
-    const link = `https://example.com/event${i + 1}`;
-  
+    const link = `#`;
+
     const event = {
       title: title,
       date: year.toString(),
-      link: link
+      link: link,
     };
-  
+
     events.push(event);
   }
-  
+
   // Ajouter deux événements se produisant la même année
   const sameYear = Math.floor(Math.random() * (2011 - 1900)) + 1900;
   const sameYearEvent1 = {
-    title: 'Événement A',
+    title: "Événement A",
     date: sameYear.toString(),
-    link: 'https://example.com/eventA'
+    link: "https://example.com/eventA",
   };
   const sameYearEvent2 = {
-    title: 'Événement B',
+    title: "Événement B",
     date: sameYear.toString(),
-    link: 'https://example.com/eventB'
+    link: "https://example.com/eventB",
   };
   events.push(sameYearEvent1, sameYearEvent2);
-  
+
   // Trier les événements par date
-  events.sort(function(a, b) {
+  events.sort(function (a, b) {
     const dateA = new Date(a.date);
     const dateB = new Date(b.date);
     return dateA - dateB;
   });
-  
+
   console.log(events);
-  
 
   for (let i = 0; i < h4Elements.length; i++) {
     const h4Text = h4Elements[i].innerText;
     const spanText = spanElements[i].innerText.match(/\b(\w+)$/)[0];
-    const link = h4Elements[i].querySelector('a').href;
+    const link = h4Elements[i].querySelector("a").href;
 
     const event = {
       title: h4Text,
       date: spanText,
-      link: link
+      link: link,
     };
 
     events.push(event);
   }
 
-  events.sort(function(a, b) {
+  events.sort(function (a, b) {
     const dateA = new Date(a.date);
     const dateB = new Date(b.date);
 
@@ -75,7 +74,7 @@ window.addEventListener('DOMContentLoaded', function() {
   const mergedEvents = [];
   let prevEvent = null;
 
-  events.forEach(function(event) {
+  events.forEach(function (event) {
     if (prevEvent && prevEvent.date === event.date) {
       prevEvent.title.push(event.title);
     } else {
@@ -92,21 +91,24 @@ window.addEventListener('DOMContentLoaded', function() {
 
   const eventsByDecade = {}; // Object pour stocker le nombre d'événements par décennie
 
-  decades.forEach(function(decade) {
-    const eventDiv = document.createElement('div');
-    eventDiv.classList.add('event');
+  decades.forEach(function (decade) {
+    const eventDiv = document.createElement("div");
+    eventDiv.classList.add("event");
 
-    const eventTitleDiv = document.createElement('div');
-    eventTitleDiv.classList.add('event-title');
-    const titleList = document.createElement('ul');
-    mergedEvents.forEach(function(event) {
-      if (parseInt(event.date) >= decade && parseInt(event.date) < decade + 10) {
-        event.title.forEach(function(title) {
-          const listItem = document.createElement('li');
-          const dateElement = document.createElement('span');
+    const eventTitleDiv = document.createElement("div");
+    eventTitleDiv.classList.add("event-title");
+    const titleList = document.createElement("ul");
+    mergedEvents.forEach(function (event) {
+      if (
+        parseInt(event.date) >= decade &&
+        parseInt(event.date) < decade + 10
+      ) {
+        event.title.forEach(function (title) {
+          const listItem = document.createElement("li");
+          const dateElement = document.createElement("span");
           dateElement.innerText = event.date;
           listItem.appendChild(dateElement);
-          const linkElement = document.createElement('a');
+          const linkElement = document.createElement("a");
           linkElement.href = event.link;
           linkElement.innerText = title;
           listItem.appendChild(linkElement);
@@ -116,26 +118,26 @@ window.addEventListener('DOMContentLoaded', function() {
     });
     eventTitleDiv.appendChild(titleList);
 
-    const eventDateDiv = document.createElement('div');
-    eventDateDiv.classList.add('event-date');
+    const eventDateDiv = document.createElement("div");
+    eventDateDiv.classList.add("event-date");
     eventDateDiv.innerText = decade;
 
     if (titleList.children.length === 0) {
-      eventDateDiv.classList.add('disabled');
+      eventDateDiv.classList.add("disabled");
     } else {
-      eventDateDiv.addEventListener('click', function() {
-        const isHidden = eventTitleDiv.style.display === 'none';
+      eventDateDiv.addEventListener("click", function () {
+        const isHidden = eventTitleDiv.style.display === "none";
 
         // Cacher tous les event-title
-        const allEventTitles = document.querySelectorAll('.event-title');
-        allEventTitles.forEach(function(title) {
-          title.style.display = 'none';
+        const allEventTitles = document.querySelectorAll(".event-title");
+        allEventTitles.forEach(function (title) {
+          title.style.display = "none";
         });
 
         if (isHidden) {
-          eventTitleDiv.style.display = 'block'; // Afficher le event-title
+          eventTitleDiv.style.display = "block"; // Afficher le event-title
         } else {
-          eventTitleDiv.style.display = 'none'; // Masquer le event-title
+          eventTitleDiv.style.display = "none"; // Masquer le event-title
         }
       });
     }
@@ -154,25 +156,27 @@ window.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-// Afficher le nombre d'événements par décennie
-for (const decade in eventsByDecade) {
-  const countElement = document.createElement('span');
-  countElement.innerText = ` (${eventsByDecade[decade]})`;
+  // Afficher le nombre d'événements par décennie
+  for (const decade in eventsByDecade) {
+    const countElement = document.createElement("span");
+    countElement.innerText = ` (${eventsByDecade[decade]})`;
 
-  // Ajout de la classe "eventsByDecade"
-  countElement.classList.add('eventsByDecade');
+    // Ajout de la classe "eventsByDecade"
+    countElement.classList.add("eventsByDecade");
 
-  const eventDateDiv = Array.from(timeline.getElementsByClassName('event-date')).find(element => element.innerText === decade);
-  eventDateDiv.appendChild(countElement);
-}
+    const eventDateDiv = Array.from(
+      timeline.getElementsByClassName("event-date")
+    ).find((element) => element.innerText === decade);
+    eventDateDiv.appendChild(countElement);
+  }
 
   // Cacher tous les event-title au chargement de la page
-  const allEventTitles = document.querySelectorAll('.event-title');
-  allEventTitles.forEach(function(title) {
-    title.style.display = 'none';
+  const allEventTitles = document.querySelectorAll(".event-title");
+  allEventTitles.forEach(function (title) {
+    title.style.display = "none";
   });
 
-  const ctx = document.getElementById('myChart');
+  const ctx = document.getElementById("myChart");
 
   const data = {
     labels: Object.keys(eventsByDecade),
@@ -182,18 +186,18 @@ for (const decade in eventsByDecade) {
         data: Object.values(eventsByDecade),
         backgroundColor: "rgba(0, 123, 255, 0.5)",
         borderColor: "rgba(0, 123, 255, 1)",
-        barThickness: 10
-      }
-    ]
+        barThickness: 10,
+      },
+    ],
   };
-  
+
   const options = {
     maintainAspectRatio: false, // Permet au graphique d'ajuster sa taille en fonction du conteneur
     aspectRatio: 5, // Définit le ratio de l'aspect du graphique (largeur / hauteur)
     plugins: {
       legend: {
-        display: false // Masquer la légende
-      }
+        display: false, // Masquer la légende
+      },
     },
     scales: {
       x: {
@@ -201,43 +205,41 @@ for (const decade in eventsByDecade) {
         drawBorder: false,
         axis: {
           display: false, // Masquer la ligne de l'axe x
-          drawOnChartArea: false // Ne pas dessiner la ligne de l'axe x sur la zone du graphique
+          drawOnChartArea: false, // Ne pas dessiner la ligne de l'axe x sur la zone du graphique
         },
         grid: {
-          display: false // Masquer la grille de l'axe x
+          display: false, // Masquer la grille de l'axe x
         },
         title: {
-          display: false // Masquer le titre de l'axe x
+          display: false, // Masquer le titre de l'axe x
         },
         ticks: {
-          display: false // Masquer les labels de l'axe x
-        }
+          display: false, // Masquer les labels de l'axe x
+        },
       },
       y: {
         display: false,
         drawBorder: false,
         axis: {
           display: false, // Masquer la ligne de l'axe x
-          drawOnChartArea: false // Ne pas dessiner la ligne de l'axe x sur la zone du graphique
+          drawOnChartArea: false, // Ne pas dessiner la ligne de l'axe x sur la zone du graphique
         },
         grid: {
-          display: false // Masquer la grille de l'axe y
+          display: false, // Masquer la grille de l'axe y
         },
         title: {
-          display: false // Masquer le titre de l'axe y
+          display: false, // Masquer le titre de l'axe y
         },
         ticks: {
-          display: false // Masquer les labels de l'axe y
-        }
-      }
-    }
+          display: false, // Masquer les labels de l'axe y
+        },
+      },
+    },
   };
-  
+
   new Chart(ctx, {
     type: "bar",
     data: data,
-    options: options
+    options: options,
   });
-
 });
-
