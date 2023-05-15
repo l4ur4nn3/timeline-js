@@ -189,7 +189,7 @@ for (const decade in eventsByDecade) {
   
   const options = {
     maintainAspectRatio: false, // Permet au graphique d'ajuster sa taille en fonction du conteneur
-    aspectRatio: 1, // Définit le ratio de l'aspect du graphique (largeur / hauteur)
+    aspectRatio: 5, // Définit le ratio de l'aspect du graphique (largeur / hauteur)
     plugins: {
       legend: {
         display: false // Masquer la légende
@@ -233,15 +233,11 @@ for (const decade in eventsByDecade) {
     }
   };
   
-
-  
   new Chart(ctx, {
     type: "bar",
     data: data,
     options: options
   });
-
-  
 
 });
 
