@@ -1,3 +1,5 @@
+[https://dulcet-gaufre-dcc58d.netlify.app/](Démo)
+
 Ce README contient des informations sur le projet de la ligne du temps interactive réalisée en HTML, CSS et JS, avec l'utilisation de la bibliothèque Chart.js.
 
 ## Description du projet
