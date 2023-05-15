@@ -154,19 +154,94 @@ window.addEventListener('DOMContentLoaded', function() {
     }
   });
 
- // Afficher le nombre d'événements par décennie
+// Afficher le nombre d'événements par décennie
 for (const decade in eventsByDecade) {
   const countElement = document.createElement('span');
   countElement.innerText = ` (${eventsByDecade[decade]})`;
 
+  // Ajout de la classe "eventsByDecade"
+  countElement.classList.add('eventsByDecade');
+
   const eventDateDiv = Array.from(timeline.getElementsByClassName('event-date')).find(element => element.innerText === decade);
   eventDateDiv.appendChild(countElement);
 }
-
 
   // Cacher tous les event-title au chargement de la page
   const allEventTitles = document.querySelectorAll('.event-title');
   allEventTitles.forEach(function(title) {
     title.style.display = 'none';
   });
+
+  const ctx = document.getElementById('myChart');
+
+  const data = {
+    labels: Object.keys(eventsByDecade),
+    datasets: [
+      {
+        label: "Évenement(s) par décennie",
+        data: Object.values(eventsByDecade),
+        backgroundColor: "rgba(0, 123, 255, 0.5)",
+        borderColor: "rgba(0, 123, 255, 1)",
+        barThickness: 10
+      }
+    ]
+  };
+  
+  const options = {
+    maintainAspectRatio: false, // Permet au graphique d'ajuster sa taille en fonction du conteneur
+    aspectRatio: 1, // Définit le ratio de l'aspect du graphique (largeur / hauteur)
+    plugins: {
+      legend: {
+        display: false // Masquer la légende
+      }
+    },
+    scales: {
+      x: {
+        display: false,
+        drawBorder: false,
+        axis: {
+          display: false, // Masquer la ligne de l'axe x
+          drawOnChartArea: false // Ne pas dessiner la ligne de l'axe x sur la zone du graphique
+        },
+        grid: {
+          display: false // Masquer la grille de l'axe x
+        },
+        title: {
+          display: false // Masquer le titre de l'axe x
+        },
+        ticks: {
+          display: false // Masquer les labels de l'axe x
+        }
+      },
+      y: {
+        display: false,
+        drawBorder: false,
+        axis: {
+          display: false, // Masquer la ligne de l'axe x
+          drawOnChartArea: false // Ne pas dessiner la ligne de l'axe x sur la zone du graphique
+        },
+        grid: {
+          display: false // Masquer la grille de l'axe y
+        },
+        title: {
+          display: false // Masquer le titre de l'axe y
+        },
+        ticks: {
+          display: false // Masquer les labels de l'axe y
+        }
+      }
+    }
+  };
+  
+
+  
+  new Chart(ctx, {
+    type: "bar",
+    data: data,
+    options: options
+  });
+
+  
+
 });
+

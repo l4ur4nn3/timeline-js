@@ -117,7 +117,3 @@ body {
  .disabled {
    cursor: not-allowed
  }
-
- .event-date span{
-  display: none;
- }
