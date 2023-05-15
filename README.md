@@ -1,10 +1,10 @@
-[https://dulcet-gaufre-dcc58d.netlify.app/](Démo)
+[Démo](https://dulcet-gaufre-dcc58d.netlify.app/)
 
 Ce README contient des informations sur le projet de la ligne du temps interactive réalisée en HTML, CSS et JS, avec l'utilisation de la bibliothèque Chart.js.
 
 ## Description du projet
 
-Le projet consiste en une ligne du temps interactive basée sur celle disponible sur [https://web.archive.org/](archive.org/). L'objectif est de générer aléatoirement un certain nombre d'événements par année lors du rechargement de la page. Les années peuvent contenir aucun événement ou plusieurs événements.
+Le projet consiste en une ligne du temps interactive basée sur celle disponible sur [archive.org](https://web.archive.org/). L'objectif est de générer aléatoirement un certain nombre d'événements par année lors du rechargement de la page. Les années peuvent contenir aucun événement ou plusieurs événements.
 
 Lorsque l'utilisateur clique sur une décennie spécifique, les événements liés à cette décennie s'affichent avec leur date précise et un lien vers l'événement correspondant.
 
