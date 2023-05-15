@@ -13,113 +13,76 @@ body {
   position: relative;
   border-bottom: 2px solid #ccc;
   display: flex;
-}
-
-.event {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  position: relative;
-}
-
-.event-date {
-  width: 50px;
-  height: 50px;
-  line-height: 50px;
-  border-radius: 50%;
-  background-color: #ccc;
-  text-align: center;
-  font-weight: bold;
-  margin-bottom: 10px;
-  cursor: pointer;
-}
-
-.event-description {
-  text-align: center;
-  display: none;
-  padding: 10px;
-  background-color: #f5f5f5;
-  border-radius: 5px;
-  z-index: 1;
-}
-
-.event.active .event-description {
-  display: block;
-}
-#cardcontainer {
-  display: none;
-}
-
-.timeline {
-  width: 100%;
-  height: 50px;
-  position: relative;
-  padding-bottom: 1rem;
-  border-bottom: 2px solid #ccc;
-  display: flex;
   margin-bottom: 10rem;
-}
-
-.event {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  position: relative;
-}
-
-.event-date {
-  width: 50px;
+  padding-bottom: 1rem;
+  }
+  
+  .event {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+  }
+  
+  .event-date {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 50%;
+    background-color: #ccc;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  
+  .event-title {
+    text-align: left;
+    margin-top: 60px;
+    display: none;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    width: 200%!important;
+    position: absolute;
+  }
+  
+  .event-description {
   text-align: center;
-  font-weight: bold;
-  cursor: pointer;
-  position: absolute;
-}
-
-.event-title {
-  text-align: left;
-  margin-top: 60px; /* compenser la hauteur de .event-date */
   display: none;
   padding: 10px;
   background-color: #f5f5f5;
   border-radius: 5px;
-  width: 200% !important;
-}
-
-.event.active .event-title {
+  }
+  
+  .event.active .event-title,
+  .event.active .event-description {
   display: block;
-}
-
-.event-description {
-  text-align: center;
-  display: none;
-  padding: 10px;
-  background-color: #f5f5f5;
-  border-radius: 5px;
-}
-
-.event.active .event-description {
-  display: block;
-}
-.event-title ul {
+  }
+  
+  .event-title ul {
   list-style-type: none;
   padding-left: 0;
-}
-
-.event-title li {
+  }
+  
+  .event-title li {
   margin-bottom: 5px;
-}
-
-span {
+  }
+  
+  span {
   margin-right: 5px !important;
-}
-
-.disabled {
+  }
+  
+  .disabled {
   cursor: not-allowed;
-}
-.eventsByDecade {
+  }
+  
+  .eventsByDecade {
   display: none;
-}
+  }
+  
+  #cardcontainer {
+  display: none;
+  }

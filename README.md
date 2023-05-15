@@ -22,7 +22,6 @@ Le projet a été réalisé en utilisant les technologies suivantes :
 Le projet prévoit les fonctionnalités suivantes à venir :
 
 -   Affichage des événements par décennie uniquement au survol.
--   Correction du bug de déplacement de la date lors du clic.
 
 ## Remarques
 
