@@ -94,15 +94,15 @@ window.addEventListener("DOMContentLoaded", function () {
   decades.forEach(function (decade) {
     const eventDiv = document.createElement("div");
     eventDiv.classList.add("event");
+    eventDiv.addEventListener("mouseleave", function () {
+      eventTitleDiv.style.display = "none"; // Masquer le event-title
+    });
 
     const eventTitleDiv = document.createElement("div");
     eventTitleDiv.classList.add("event-title");
     const titleList = document.createElement("ul");
     mergedEvents.forEach(function (event) {
-      if (
-        parseInt(event.date) >= decade &&
-        parseInt(event.date) < decade + 10
-      ) {
+      if (parseInt(event.date) >= decade && parseInt(event.date) < decade + 10) {
         event.title.forEach(function (title) {
           const listItem = document.createElement("li");
           const dateElement = document.createElement("span");
@@ -122,10 +122,50 @@ window.addEventListener("DOMContentLoaded", function () {
     eventDateDiv.classList.add("event-date");
     eventDateDiv.innerText = decade;
 
+    // Ajouter l'attribut data-tooltip et l'événement mouseenter
+    eventDateDiv.setAttribute("data-tooltip", "Aucune entrée pour cette décennie");
+    eventDateDiv.addEventListener("mouseenter", function () {
+      const tooltip = eventDateDiv.getAttribute("data-tooltip");
+      if (tooltip) {
+        const tooltipElement = document.createElement("div");
+        tooltipElement.classList.add("tooltip");
+        tooltipElement.innerText = tooltip;
+        eventDateDiv.appendChild(tooltipElement);
+      }
+    });
+
+    eventDateDiv.addEventListener("mouseleave", function () {
+      const tooltipElement = eventDateDiv.querySelector(".tooltip");
+      if (tooltipElement) {
+        tooltipElement.remove();
+      }
+    });
+
+    function addPulseAnimation() {
+      eventDateDiv.classList.add("pulse-animation", "pulse-beat"); // Ajouter les classes pulse-animation et pulse-beat
+
+      setTimeout(function () {
+        eventDateDiv.classList.remove("pulse-beat"); // Supprimer la classe pulse-beat après 3 secondes
+      }, 3000);
+    }
+
+    // Vérifier si l'utilisateur a fait défiler jusqu'à la section ".timeline"
+    let isTimelineVisible = false;
+    const checkTimelineVisibility = function () {
+      const timelineRect = timeline.getBoundingClientRect();
+      if (timelineRect.top < window.innerHeight) {
+        isTimelineVisible = true;
+        addPulseAnimation();
+        window.removeEventListener("scroll", checkTimelineVisibility);
+      }
+    };
+    window.addEventListener("scroll", checkTimelineVisibility);
+
     if (titleList.children.length === 0) {
       eventDateDiv.classList.add("disabled");
+      eventDateDiv.title = "Aucune entrée pour cette décennie";
     } else {
-      eventDateDiv.addEventListener("click", function () {
+      eventDateDiv.addEventListener("mouseenter", function () {
         const isHidden = eventTitleDiv.style.display === "none";
 
         // Cacher tous les event-title
@@ -176,16 +216,30 @@ window.addEventListener("DOMContentLoaded", function () {
     title.style.display = "none";
   });
 
+  const chartContainerClone = document.createElement("div");
+  chartContainerClone.id = "chart-container-clone";
+
+  // const myChartClone = document.createElement("canvas");
+  // myChartClone.id = "myChartTwo";
+  // chartContainerClone.appendChild(myChartClone);
+
+  const timelineClone = timeline.cloneNode(true);
+  timelineClone.classList.add("timelinetwo");
+
+  timeline.parentNode.insertBefore(chartContainerClone, timeline.nextSibling);
+  timeline.parentNode.insertBefore(timelineClone, chartContainerClone.nextSibling);
+
   const ctx = document.getElementById("myChart");
+  const ctxClone = document.getElementById("myChartTwo");
 
   const data = {
     labels: Object.keys(eventsByDecade),
     datasets: [
       {
-        label: "Évenement(s) par décennie",
+        label: "Événement(s)",
         data: Object.values(eventsByDecade),
-        backgroundColor: "rgba(0, 123, 255, 0.5)",
-        borderColor: "rgba(0, 123, 255, 1)",
+        backgroundColor: "#0070ba",
+        borderColor: "#0070ba",
         barThickness: 10,
       },
     ],
@@ -237,9 +291,54 @@ window.addEventListener("DOMContentLoaded", function () {
     },
   };
 
-  new Chart(ctx, {
+  const myChart = new Chart(ctx, {
     type: "bar",
     data: data,
     options: options,
   });
+
+  const myChartCloneInstance = new Chart(ctxClone, {
+    type: "bar",
+    data: data,
+    options: options,
+  });
+
+const originalTimeline = document.querySelector(".timeline");
+const clonedTimeline = document.querySelector(".timelinetwo");
+const firstClonedTimelineDate = clonedTimeline.querySelector(".event-date");
+
+originalTimeline.addEventListener("click", function(event) {
+  if (event.target.classList.contains("event-date")) {
+    const clickedYear = event.target.textContent;
+    const extractedYear = clickedYear.match(/\d+/); // Recherche du premier nombre dans le texte
+    const yearText = extractedYear ? extractedYear[0] : ""; // Extraction du premier nombre trouvé
+
+    firstClonedTimelineDate.textContent = yearText;
+    firstClonedTimelineDate.removeAttribute("data-tooltip");
+	  
+	const clonedEventDates = clonedTimeline.querySelectorAll(".event-date");
+
+for (let i = 1; i <= 10; i++) {
+  const previousDate = parseInt(clonedEventDates[i - 1].textContent);
+  const newDate = previousDate + 1;
+  clonedEventDates[i].textContent = newDate;
+}
+
+  }
+});
+
+const clonedTimelineEvents = clonedTimeline.querySelectorAll(".event");
+
+if (clonedTimelineEvents.length > 0) {
+  const lastEvent = clonedTimelineEvents[clonedTimelineEvents.length - 1];
+  lastEvent.remove();
+}
+
+const eventDateElements = document.querySelectorAll(".event-date");
+eventDateElements.forEach(function (element) {
+  element.removeAttribute("title");
+  element.removeAttribute("data-tooltip");
+});
+
+
 });
